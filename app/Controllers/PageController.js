@@ -2,6 +2,7 @@ import { ProxyState } from "../AppState.js";
 import { sandBoxApi } from "../Services/AxiousSandboxApi.js";
 import { pageService } from "../Services/PageService.js"
 import { generateId } from "../Utils/generateId.js";
+import { WeatherController } from "./WeatherController.js";
 // Private Functions
 function _DrawClock() {
   var today = new Date();
@@ -18,8 +19,6 @@ export class PageController {
     console.log('Hello from the PageController!')
     this.setClock()
     this.setBackgroundImg()
-    this.setQuote()
-    this.setWeather()
     _DrawClock()
     pageService.drawTodo()
   }
@@ -38,10 +37,7 @@ export class PageController {
     // @ts-ignore
     form.reset()
   }
-  toggleTemp(){
-    ProxyState.weather.convertion = !ProxyState.weather.convertion
-    pageService.drawWeather()
-  }
+
   delTask(taskID){
     pageService.delTask(taskID)
   }
@@ -65,18 +61,12 @@ export class PageController {
   }
 
   // Weather Section Here
-  setWeather(){
-    pageService.setWeather()
-  }
 
   //Background Section Here
   setBackgroundImg(){
     pageService.setBackgroundImg()
   }
-  //Quote Section Here VvV
-  setQuote(){
-    pageService.setQuote()
-  }
+
   // Clock Section Below VvV
   setClock() {
     setInterval(function () {

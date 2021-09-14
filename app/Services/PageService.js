@@ -11,62 +11,15 @@ async function _setBackgroundImg() {
   let res = await sandBoxApi.get('images')
   ProxyState.image = new Image(res.data)
   ProxyState.imageUrl = ProxyState.image.url
-  let template = ProxyState.imageUrl
   document.getElementById('backgroundImgStyle').innerHTML = `
   body {
-    background-image: url('${template}');
+    background-image: url('${ProxyState.imageUrl}');
     background-repeat: no-repeat;
     background-size: cover;
   }
   `
 }
 
-async function _setQuote() {
-  let res = await sandBoxApi.get('quotes')
-  document.getElementById('quoteId').innerHTML = `
-  <p>"${res.data.content}"</p>
-  <div id="authorID" style="display: none">By : ${res.data.author}</div>
-  `
-  document.getElementById('quoteStyle').innerHTML = `
-  #quoteId #authorId{
-    display: none;
-  }
-  #quoteId:hover #authorID{
-    display: block;
-  }
-  `
-}
-
-async function _setWeather() {
-  let res = await sandBoxApi.get('weather')
-  ProxyState.weather = new Weather(res.data)
-  _drawWeather()
-}
-
-function _drawWeather() {
-  let currTemp = ''
-  if (ProxyState.weather.convertion) {
-    currTemp = kelvinToC(ProxyState.weather.temp).toString() + 'C'
-  } else {
-    currTemp = kelvinToF(ProxyState.weather.temp).toString() + 'F'
-  }
-  let url = "http://openweathermap.org/img/wn/" + ProxyState.weather.icon + "@2x.png"
-  document.getElementById('weatherId').innerHTML = /*html*/`
-    <div class="p-3 card d-flex">
-            <div class="row">
-              <img src='${url}' alt="Icon-Img " class="col"/>
-              <div class="col text-center">
-                <div class="row" onclick="app.pageController.toggleTemp()">
-                    <h5>${currTemp}</h5>
-                </div>
-                <div class="row">
-                  <p>${ProxyState.weather.city}</p>
-                </div>
-              </div>
-            </div>
-    </div>
-    `
-}
 
 async function _drawTodo() {
   let res = await sandBoxApi.get(`${ProxyState.User}/todos`)
@@ -109,15 +62,9 @@ class PageService {
   drawTodo() {
     _drawTodo()
   }
-  setWeather() {
-    _setWeather()
-  }
-  drawWeather() {
-    _drawWeather()
-  }
-  setQuote() {
-    _setQuote()
-  }
+
+
+
   setBackgroundImg() {
     _setBackgroundImg()
   }
