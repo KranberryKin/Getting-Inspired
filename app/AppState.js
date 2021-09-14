@@ -14,11 +14,10 @@ class AppState extends EventEmitter {
     country: ''
   }
   todo = []
-
+  
   User = 'quinn'
   apiUrl = 'https://bcw-sandbox.herokuapp.com/api'
   /** @type {import('./Models/Image').Image} */
-  // @ts-ignore
   image = {
     url:'',
     author:''

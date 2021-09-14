@@ -1,26 +1,33 @@
 import { ProxyState } from "../AppState.js";
+import { Todo } from "../Models/Todo.js";
 import { sandBoxApi } from "../Services/AxiousSandboxApi.js";
 import { pageService } from "../Services/PageService.js"
 import { generateId } from "../Utils/generateId.js";
-import { WeatherController } from "./WeatherController.js";
 // Private Functions
-function _DrawClock() {
-  var today = new Date();
-  var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-  var time = today.getHours() + ":" + today.getMinutes();
-  document.getElementById('clock').innerText = time
-  document.getElementById('date').innerText = date
-
+async function _drawTodo() {
+  let res = await sandBoxApi.get(`${ProxyState.User}/todos`)
+  let template = ''
+  console.log(res);
+  let x = res.data
+  let remainingtasks = 0
+  if (x != undefined) {
+    x.forEach(t => {
+      let todo = new Todo(t)
+      ProxyState.todo.push(todo)
+      template += todo.Template
+      if(!todo.completed){
+        remainingtasks++
+      }
+    });
+  }
+  document.getElementById('remainingTasks').innerText = remainingtasks.toString()
+  document.getElementById('Todo-List').innerHTML = template
 }
-
 
 export class PageController {
   constructor() {
     console.log('Hello from the PageController!')
-    this.setClock()
-    this.setBackgroundImg()
-    _DrawClock()
-    pageService.drawTodo()
+    ProxyState.on('todo', _drawTodo)
   }
 
   addTodo(){
@@ -50,7 +57,8 @@ export class PageController {
     }
     let res = await sandBoxApi.put(`${ProxyState.User}/todos/${taskId}`, task)
     console.log('work?', res);
-    pageService.drawTodo()
+
+
   }
 
   onHover(){
@@ -60,18 +68,5 @@ export class PageController {
     document.getElementById('authorID').style.display = 'none'
   }
 
-  // Weather Section Here
-
-  //Background Section Here
-  setBackgroundImg(){
-    pageService.setBackgroundImg()
-  }
-
-  // Clock Section Below VvV
-  setClock() {
-    setInterval(function () {
-      _DrawClock()
-    }, 1000)
-  }
 }
 
