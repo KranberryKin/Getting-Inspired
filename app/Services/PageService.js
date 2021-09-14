@@ -9,13 +9,13 @@ class PageService {
     let x = confirm("Are you sure you want to deYEET?")
     if(x){
       let res = await sandBoxApi.delete(`${ProxyState.User}/todos/${taskId}`)
-      console.log("Did it work?", res);
+      ProxyState.todo = ProxyState.todo.filter(t => !t.id == taskId)
     }
   }
 
   async addTodo(formData) {
-
     let res = await sandBoxApi.post(`${ProxyState.User}/todos`, new Todo(formData))
+    ProxyState.todo = [...ProxyState.todo, new Todo(formData)]
     return res
   }
 

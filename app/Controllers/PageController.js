@@ -15,7 +15,7 @@ async function _drawTodo() {
       let todo = new Todo(t)
       ProxyState.todo.push(todo)
       template += todo.Template
-      if(!todo.completed){
+      if (!todo.completed) {
         remainingtasks++
       }
     });
@@ -28,9 +28,10 @@ export class PageController {
   constructor() {
     console.log('Hello from the PageController!')
     ProxyState.on('todo', _drawTodo)
+    _drawTodo()
   }
 
-  addTodo(){
+  addTodo() {
     event.preventDefault()
     let form = event.target
     let formData = {
@@ -45,26 +46,25 @@ export class PageController {
     form.reset()
   }
 
-  delTask(taskID){
+  delTask(taskID) {
     pageService.delTask(taskID)
   }
-  async completeTask(taskId){
+  async completeTask(taskId) {
     let task = ProxyState.todo.find(t => taskId == t.id)
-    if(task.completed){
+    if (task.completed) {
       task.completed = false
-    }else{
+    } else {
       task.completed = true
     }
     let res = await sandBoxApi.put(`${ProxyState.User}/todos/${taskId}`, task)
+    _drawTodo()
     console.log('work?', res);
-
-
   }
 
-  onHover(){
+  onHover() {
     document.getElementById('authorID').style.display = 'block'
   }
-  onLeave(){
+  onLeave() {
     document.getElementById('authorID').style.display = 'none'
   }
 
