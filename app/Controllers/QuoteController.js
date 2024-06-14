@@ -3,8 +3,10 @@ import { sandBoxApi } from "../Services/AxiousSandboxApi.js";
 async function _setQuote() {
   let res = await sandBoxApi.get('quotes')
   document.getElementById('quoteId').innerHTML = `
+  <div class="card-quote">
   <p>"${res.data.content}"</p>
   <div id="authorID" style="display: none">By : ${res.data.author}</div>
+  </div>
   `
   document.getElementById('quoteStyle').innerHTML = `
   #quoteId #authorId{
