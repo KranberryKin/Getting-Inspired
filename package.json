@@ -1,15 +1,19 @@
 {
-  "name": "cw-starter",
+  "name": "getting-inspired",
+  "original-name": "cw-starter",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "serve": "bcw-serve",
+    "serve-q": "http-server ./ -o",
     "sass": "sass --watch assets/scss/main.scss:assets/style/main.css"
   },
   "author": "Jake Overall <joverall22@gmail.com>",
+  "editor": "Quinnton Perri <quinnclimbs@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "http-server": "^14.1.1",
     "sass": "^1.26.10"
   },
   "dependencies": {
