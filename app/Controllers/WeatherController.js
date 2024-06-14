@@ -13,14 +13,14 @@ async function _setWeather() {
 function _drawWeather() {
   let currTemp = ''
   if (ProxyState.weather.convertion) {
-    currTemp = kelvinToC(ProxyState.weather.temp).toString() + 'C'
+    currTemp = kelvinToC(ProxyState.weather.temp).toString() + ' C&deg'
   } else {
-    currTemp = kelvinToF(ProxyState.weather.temp).toString() + 'F'
+    currTemp = kelvinToF(ProxyState.weather.temp).toString() + ' F&deg'
   }
   let url = "http://openweathermap.org/img/wn/" + ProxyState.weather.icon + "@2x.png"
   document.getElementById('weatherId').innerHTML = /*html*/`
-    <div class="p-3 card d-flex">
-            <div class="row">
+    <div class="p-3 card-weather d-flex">
+            <div class="row align-items-center">
               <img src='${url}' alt="Icon-Img " class="col"/>
               <div class="col text-center">
                 <div class="row" onclick="app.weatherController.toggleTemp()">
