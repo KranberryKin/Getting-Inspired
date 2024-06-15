@@ -13,7 +13,7 @@ export class Todo {
 
   get Template(){
     return/*html*/ `
-    <div class="row d-flex ">
+    <div class="row d-flex">
       <div class="col-1">
       <input type="checkbox" name="complete" id="${this.id}-complete" onclick="app.pageController.completeTask('${this.id}')" ${this.completed ? 'Checked':''}>
       </div>

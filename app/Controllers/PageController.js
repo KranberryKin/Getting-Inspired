@@ -5,13 +5,11 @@ import { pageService } from "../Services/PageService.js"
 import { generateId } from "../Utils/generateId.js";
 // Private Functions
 async function _drawTodo() {
-  let res = await sandBoxApi.get(`${ProxyState.User}/todos`)
+  let res = await pageService.getTodos();
   let template = ''
-  console.log(res);
-  let x = res.data
   let remainingtasks = 0
-  if (x != undefined) {
-    x.forEach(t => {
+  if (res != undefined) {
+    res.forEach(t => {
       let todo = new Todo(t)
       ProxyState.todo.push(todo)
       template += todo.Template
@@ -28,7 +26,7 @@ export class PageController {
   constructor() {
     console.log('Hello from the PageController!')
     ProxyState.on('todo', _drawTodo)
-    _drawTodo()
+  _drawTodo()
   }
 
   addTodo() {
@@ -46,19 +44,14 @@ export class PageController {
     form.reset()
   }
 
-  delTask(taskID) {
-    pageService.delTask(taskID)
+  async delTask(taskID) {
+    await pageService.delTask(taskID)
+    _drawTodo();
   }
+
   async completeTask(taskId) {
-    let task = ProxyState.todo.find(t => taskId == t.id)
-    if (task.completed) {
-      task.completed = false
-    } else {
-      task.completed = true
-    }
-    let res = await sandBoxApi.put(`${ProxyState.User}/todos/${taskId}`, task)
-    _drawTodo()
-    console.log('work?', res);
+    await pageService.updateTodo(taskId);
+    _drawTodo();
   }
 
   onHover() {
