@@ -4401,9 +4401,67 @@ textarea.form-control-lg {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 0.25rem;
 }
+
+.todo-template-container{
+  display: flex;
+  align-content: space-between;
+  width: 100%;
+}
+
+.todo-template-checkbox{
+  width: 11vw;
+}
+
+.todo-template-name{
+  width: 11vw;
+}
+
+.todo-template-button{
+  width: 11vw;
+}
+.todo-section{
+  display: flex;
+flex-direction: column;
+  align-items: end;
+}
+
+.todo-container{
+display: flex;
+flex-direction: column;
+border: #000 solid 1px;
+border-radius: 1rem;
+width: 33vw;
+margin-right: 2rem;
+background-color: rgba(238, 236, 236, 0.53);
+}
+
+.todo-header{
+  display: flex;
+  padding: 10px 0px 0px 10px;
+  border-bottom: #000 solid 1px;
+}
+.todo-body{
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}
+.todo-footer{
+  display: flex;
+  width: 100%;
+  padding: 10px 0px 10px 10px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.todo-input{
+  border-radius: 5px;
+  padding: 0;
+}
+
+
 .card-clock{
   position: relative;
   display: flex;
@@ -4493,16 +4551,22 @@ textarea.form-control-lg {
 .card-header {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: rgba(0, 0, 0, 0);
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
+
+.todo-container{
+  display: flex;
+  flex-direction: column;
+}
+
 .card-header:first-child {
   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
 }
 
 .card-footer {
   padding: 0.5rem 1rem;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: rgba(0, 0, 0, 0);
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 .card-footer:last-child {

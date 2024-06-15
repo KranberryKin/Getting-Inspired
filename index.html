@@ -43,21 +43,21 @@
         </div>
       </div>
       <!-- Form Test Here -->
-      <div class="row justify-content-end me-5">
-        <div class="col-3 card p-0">
-          <div class="row">
-            <div class="card-header text-center col">
+      <div class="todo-section">
+        <div class="todo-container">
+          <div>
+            <div class="todo-header text-center">
               <h6 class="pt-1">To Do's (Remaining: <span id="remainingTasks"></span>)</h6>
             </div>
             <!-- Todo HTML Template Paste Here -->
-            <div class="card-body scrollable-y col px-4 me-3" style="max-height: 25vh;" id="Todo-List"></div>
+            <div class="todo-body scrollable-y" style="max-height: 25vh;" id="Todo-List"></div>
             <!-- Form Specifics Below -->
-            <div class="card-footer text-center col">
-              <form onsubmit="app.pageController.addTodo()">
-                <label for="description"></label>
-                <input type="text" name="description" id="description">
-                <button type="submit" class="btn btn-success p-1 m-1">Submit</button>
-                <button type="reset" class="btn btn-danger p-1 m-1">Clear</button>
+            <div class="todo-footer">
+              <form class="todo-form-container" onsubmit="app.pageController.addTodo()">
+                  <label for="description">Task Name: </label>
+                  <input class="todo-input" type="text" name="description" id="description">
+                  <button type="submit" class="btn btn-success p-1 m-1">Submit</button>
+                  <button type="reset" class="btn btn-danger p-1 m-1">Clear</button>
               </form>
             </div>
             </div>
