@@ -12,10 +12,13 @@ async function _setWeather() {
 
 function _drawWeather() {
   let currTemp = ''
+  let isCelsius = false;
   if (ProxyState.weather.convertion) {
     currTemp = kelvinToC(ProxyState.weather.temp).toString() + ' C&deg'
+    isCelsius = true;
   } else {
     currTemp = kelvinToF(ProxyState.weather.temp).toString() + ' F&deg'
+    isCelsius = false;
   }
   let url = "http://openweathermap.org/img/wn/" + ProxyState.weather.icon + "@2x.png"
   document.getElementById('weatherId').innerHTML = /*html*/`
@@ -23,7 +26,7 @@ function _drawWeather() {
             <div class="row align-items-center">
               <img src='${url}' alt="Icon-Img " class="col"/>
               <div class="col text-center">
-                <div class="row" onclick="app.weatherController.toggleTemp()">
+                <div title="${"Change To " + (isCelsius ? "Fahrenheit" : "Celsius" )}" class="row interactive" onclick="app.weatherController.toggleTemp()">
                     <h5>${currTemp}</h5>
                 </div>
                 <div class="row">
