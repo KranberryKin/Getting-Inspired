@@ -14,10 +14,10 @@ function _drawWeather() {
   let currTemp = ''
   let isCelsius = false;
   if (ProxyState.weather.convertion) {
-    currTemp = kelvinToC(ProxyState.weather.temp).toString() + ' C&deg'
+    currTemp = kelvinToC(ProxyState.weather.temp).toString() + ' &degC'
     isCelsius = true;
   } else {
-    currTemp = kelvinToF(ProxyState.weather.temp).toString() + ' F&deg'
+    currTemp = kelvinToF(ProxyState.weather.temp).toString() + ' &degF'
     isCelsius = false;
   }
   let url = "http://openweathermap.org/img/wn/" + ProxyState.weather.icon + "@2x.png"
