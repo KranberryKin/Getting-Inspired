@@ -57,14 +57,15 @@ async function _SuccessFunction (position) {
   const cityName = await _GetCityNameOffLocation(position);
   const forcast = await _GetForcastOffLocation(position);
   console.log("Your City Data:", cityName)
-  ProxyState.weather = {...forcast, city: cityName};
-  _drawWeather();
+  if(cityName != "" && forcast != null){
+    ProxyState.weather = {...forcast, city: cityName};
+    _drawWeather();
+  }
 } 
 
 async function _GetForcastOffLocation(position){
   const forcastUrl = await _CreatForcastUrl(position);
   const todaysForcast = await _ApiCall(forcastUrl);
-  console.log("Your Forcast: ", todaysForcast);
   const forcastNow = await _GetCurrentForcast(todaysForcast)
   return forcastNow;
 }
@@ -76,7 +77,7 @@ async function _GetCurrentForcast(todaysForcast){
   const weatherCodeRanges = ranges.weather_code || [];
   var today = new Date();
   var startDateTime = (today.getFullYear()+ '-' + ((today.getMonth() + 1).toString().length > 1 ? today.getMonth() + 1 : "0" + (today.getMonth() + 1)) + '-' + today.getDate()) + "T" + (today.getHours().toString().length > 1 ? today.getHours() : "0" + today.getHours() )  + ":00";
-  var endDateTime = (today.getFullYear()+ '-' + ((today.getMonth() + 1).toString().length > 1 ? today.getMonth() + 1 : "0" + (today.getMonth() + 1)) + '-' + today.getDate()) + "T" + ((today.getHours() + 1).toString().length > 1 ? today.getHours() + 1 : "0" + today.getHours() + 1 )  + ":00";
+  var endDateTime = (today.getFullYear()+ '-' + ((today.getMonth() + 1).toString().length > 1 ? today.getMonth() + 1 : "0" + (today.getMonth() + 1)) + '-' + ((today.getHours() + 1) == 24 ? today.getDate() + 1 : today.getDate())) + "T" + ((today.getHours() + 1).toString().length > 1 ? (today.getHours() + 1) === 24 ? "00" : today.getHours() + 1 : "0" + today.getHours() + 1 )  + ":00";
   const timeIndexMin = timeRanges.findIndex(tr => tr === startDateTime)
   const timeIndexMax = timeRanges.findIndex(tr => tr === endDateTime)
   let weather = {};
@@ -87,6 +88,8 @@ async function _GetCurrentForcast(todaysForcast){
     tempature = await convertFahrenheitToKelvin(tempatureRanges[timeIndexMin]);
     console.log("Your tempature: ", tempature);
     return {...ProxyState.weather, temp: tempature, city: "", svg: weather.svg, weatherName: weather.name }
+  }else{
+    return null;
   }
 }
 
