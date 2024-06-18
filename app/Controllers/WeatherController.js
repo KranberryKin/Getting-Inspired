@@ -31,13 +31,14 @@ function _drawWeather() {
                 <div class="col">
                 ${ProxyState.weather.svg !== "" ? ProxyState.weather.svg : ""}
                   <img src='${url}' class="${ProxyState.weather.svg !== "" ? "d-none" : ""}" alt="Icon-Img "/>
-                  <p id="forcastName" class="text-center${ProxyState.weather.weatherName === "" ? "d-none" : ""}">${ProxyState.weather.weatherName}</p>
+                  <p id="forcastName" class="text-center ${ProxyState.weather.weatherName === "" ? "d-none" : ""}">${ProxyState.weather.weatherName}</p>
                 </div>
-                <div class="col text-center">
-                  <div title="${"Change To " + (isCelsius ? "Fahrenheit" : "Celsius" )}" class="row interactive" onclick="app.weatherController.toggleTemp()">
+                <div class="col">
+                  <i class="interactive weather-geolocator ${ProxyState.weather.weatherName !== "" ? "d-none" : ""}" onclick="app.weatherController.getGeolocation()" title="Get Geo-Location">i</i>
+                  <div title="${"Change To " + (isCelsius ? "Fahrenheit" : "Celsius" )}" class="row interactive text-center" onclick="app.weatherController.toggleTemp()">
                       <h5>${currTemp}</h5>
                   </div>
-                  <div class="row">
+                  <div class="row text-center">
                     <p>${ProxyState.weather.city}</p>
                 </div>
               </div>
@@ -147,8 +148,7 @@ async function _ApiCall(url){
 export class WeatherController{
   constructor(){
     console.log("Hello From WeatherController")
-    this.setWeather()
-    this.getGeolocation();
+    this.setWeather();
   }
 
   setWeather(){
