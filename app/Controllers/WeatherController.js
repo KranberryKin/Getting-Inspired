@@ -128,7 +128,7 @@ async function _CreateLocationUrl(position, overload = false){
   let longMin = Math.floor(+position.coords.longitude * amount) / amount;
   let longMax = Math.ceil(+position.coords.longitude * amount) / amount;
 
-  return `https://api.geonames.org/citiesJSON?north=${isLatPositive ? latMax : latMin}&south=${isLatPositive ? latMin : latmax}&east=${isLongPositive ? longMax : longMin}&west=${isLongPositive ? longMin : longMax}&lang=en&username=kranberrykin`
+  return `https://secure.geonames.org/citiesJSON?north=${isLatPositive ? latMax : latMin}&south=${isLatPositive ? latMin : latmax}&east=${isLongPositive ? longMax : longMin}&west=${isLongPositive ? longMin : longMax}&lang=en&username=kranberrykin`
 }
 
 async function _ApiCall(url){
