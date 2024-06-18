@@ -57,7 +57,6 @@ function _ErrorFunction(){
 async function _SuccessFunction (position) {
   const cityName = await _GetCityNameOffLocation(position);
   const forcast = await _GetForcastOffLocation(position);
-  console.log("Your City Data:", cityName)
   if(cityName != "" && forcast != null){
     ProxyState.weather = {...forcast, city: cityName};
     _drawWeather();
@@ -77,17 +76,15 @@ async function _GetCurrentForcast(todaysForcast){
   const tempatureRanges = ranges.temperature_2m || [];
   const weatherCodeRanges = ranges.weather_code || [];
   var today = new Date();
-  var startDateTime = (today.getFullYear()+ '-' + ((today.getMonth() + 1).toString().length > 1 ? today.getMonth() + 1 : "0" + (today.getMonth() + 1)) + '-' + today.getDate()) + "T" + (today.getHours().toString().length > 1 ? today.getHours() : "0" + today.getHours() )  + ":00";
-  var endDateTime = (today.getFullYear()+ '-' + ((today.getMonth() + 1).toString().length > 1 ? today.getMonth() + 1 : "0" + (today.getMonth() + 1)) + '-' + ((today.getHours() + 1) == 24 ? today.getDate() + 1 : today.getDate())) + "T" + ((today.getHours() + 1).toString().length > 1 ? (today.getHours() + 1) === 24 ? "00" : today.getHours() + 1 : "0" + today.getHours() + 1 )  + ":00";
+  var startDateTime = (today.getFullYear()+ '-' + ((today.getMonth() + 1).toString().length > 1 ? today.getMonth() + 1 : "0" + (today.getMonth() + 1)) + '-' + ((today.getHours() + 1) == 24 ? today.getDate() + 1 : today.getDate())) + "T" + (today.getHours().toString().length > 1 ? today.getHours() : "0" + today.getHours() )  + ":00";
+  var endDateTime = (today.getFullYear()+ '-' + ((today.getMonth() + 1).toString().length > 1 ? today.getMonth() + 1 : "0" + (today.getMonth() + 1)) + '-' + ((today.getHours() + 1) == 24 ? today.getDate() + 1 : today.getDate())) + "T" + ((today.getHours() + 1).toString().length > 1 ? ((today.getHours() + 1) === 24 ? "00" : today.getHours() + 1) : "0" + (today.getHours() + 1) )  + ":00";
   const timeIndexMin = timeRanges.findIndex(tr => tr === startDateTime)
   const timeIndexMax = timeRanges.findIndex(tr => tr === endDateTime)
   let weather = {};
   let tempature = 0;
-  if(timeIndexMax > -1 && timeIndexMin > -1){
-    weather = await getWeatherCode(weatherCodeRanges[timeIndexMin]);
-    console.log("Your Weather: ", weather);
-    tempature = await convertFahrenheitToKelvin(tempatureRanges[timeIndexMin]);
-    console.log("Your tempature: ", tempature);
+  if(timeIndexMax > -1 && timeIndexMin > -1 ){
+    weather = await getWeatherCode(weatherCodeRanges[timeIndexMax]);
+    tempature = await convertFahrenheitToKelvin(tempatureRanges[timeIndexMax]);
     return {...ProxyState.weather, temp: tempature, city: "", svg: weather.svg, weatherName: weather.name }
   }else{
     return null;
@@ -135,7 +132,6 @@ async function _ApiCall(url){
   const response = await fetch(url)
   .then(response => {
       if(!response.ok){
-          console.log("_ApiCall() response: ", response)
           throw new Error('Network response was not ok ' + response.statusText);
       }
       return response.json();
