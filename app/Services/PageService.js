@@ -1,6 +1,5 @@
 import { ProxyState } from "../AppState.js";
 import { Todo } from "../Models/Todo.js";
-import { sandBoxApi } from "./AxiousSandboxApi.js";
 
 
 class PageService {
@@ -56,7 +55,6 @@ class PageService {
   async addTodo(formData) {
     this._todos.push(formData);
     this.saveTodos();
-    // let res = await sandBoxApi.post(`${ProxyState.User}/todos`, new Todo(formData))
     ProxyState.todo = [...ProxyState.todo, new Todo(formData)]
     return res
   }
