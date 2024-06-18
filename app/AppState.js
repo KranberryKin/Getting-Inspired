@@ -11,8 +11,11 @@ class AppState extends EventEmitter {
     cover: '',
     icon:'',
     city: '',
-    country: ''
+    country: '',
+    svg:'',
+    weatherName:'',
   }
+  /** @type {import('./Models/Todo').Todo} */
   todo = []
   
   User = 'quinn'

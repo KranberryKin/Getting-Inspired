@@ -6,5 +6,7 @@ export class Weather {
     this.city = weatherData.name
     this.country = weatherData.sys.country
     this.convertion = weatherData.convertion || false
+    this.svg = ""
+    this.weatherName = ""
   }
 }

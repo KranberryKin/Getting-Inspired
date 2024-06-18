@@ -6,11 +6,11 @@ import { WeatherController } from "./Controllers/WeatherController.js";
 
 
 class App {
+  backgroundController = new BackgroundController()
+  clockController = new ClockController()
   quoteController = new QuoteController()
   pageController = new PageController()
   weatherController = new WeatherController()
-  clockController = new ClockController()
-  backgroundController = new BackgroundController()
 }
 
 window["app"] = new App();
