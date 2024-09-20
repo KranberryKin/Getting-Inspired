@@ -1,11 +1,16 @@
-import { sandBoxApi } from "../Services/AxiousSandboxApi.js";
+import { quotes } from "../Data/quotes.js"
+
+function getRandomQuote() {
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  return quotes[randomIndex];
+}
 
 async function _setQuote() {
-  let res = await sandBoxApi.get('quotes')
+  let res = getRandomQuote();
   document.getElementById('quoteId').innerHTML = `
   <div class="card-quote">
-  <p>"${res.data.content}"</p>
-  <div id="authorID" style="display: none">By : ${res.data.author}</div>
+  <p>"${res.Quote}"</p>
+  <div id="authorID" style="display: none">By : ${res.Author}</div>
   </div>
   `
   document.getElementById('quoteStyle').innerHTML = `
